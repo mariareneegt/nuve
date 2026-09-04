@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nuve | Panel de Empleado</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/empleado.css"><link rel="stylesheet" href="/password-modal.css">
+</head>
+
+<body class="employee-loading">
+
+    <div class="app">
+
+        <!-- ============================= -->
+        <!-- MENÚ LATERAL -->
+        <!-- ============================= -->
+
+        <aside class="sidebar">
+
+            <div class="brand">
+                <h1>nuve</h1>
+                <p>pastelería & repostería</p>
+            </div>
+
+            <nav class="menu">
+
+                <button class="menu-item active" data-view="inicio">
+                    ◆ Panel general
+                </button>
+
+                <button class="menu-item" data-view="pedidos">
+                    ◆ Pedidos
+                </button>
+
+                <button class="menu-item" data-view="productos">
+                    ◆ Productos
+                </button>
+
+                <button class="menu-item" data-view="cuenta">
+                    ◆ Mi cuenta
+                </button>
+
+            </nav>
+
+
+            <div class="sidebar-footer">
+
+                <button class="logout-button" id="logoutButton">
+                    ⏻ Cerrar sesión
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ============================= -->
+        <!-- CONTENIDO PRINCIPAL -->
+        <!-- ============================= -->
+
+        <main class="main-content">
+
+
+            <!-- ========================= -->
+            <!-- BARRA SUPERIOR -->
+            <!-- ========================= -->
+
+            <header class="topbar">
+
+                <div>
+
+                    <h2 id="pageTitle">
+                        Panel general
+                    </h2>
+
+                    <p id="currentDate">
+                        Panel de trabajo del empleado
+                    </p>
+
+                </div>
+
+
+                <div class="profile-menu">
+                    <button class="employee-profile" id="employeeProfileToggle" type="button" aria-expanded="false"
+                        aria-controls="employeeDropdown">
+                        <div class="employee-avatar">E</div>
+                        <div class="employee-profile-content">
+                            <strong>Empleado Nuve</strong>
+                            <span>Empleado</span>
+                        </div>
+                        <span class="profile-chevron" aria-hidden="true">⌄</span>
+                    </button>
+
+                    <div class="employee-dropdown" id="employeeDropdown" hidden>
+                        <button type="button" data-profile-view="inicio">Panel general</button>
+                        <button type="button" data-profile-view="pedidos">Pedidos</button>
+                        <button type="button" data-profile-view="productos">Productos</button>
+                        <button type="button" data-profile-view="cuenta">Mi cuenta</button>
+                        <hr>
+                        <button type="button" class="profile-logout" id="profileLogout">⏻ Cerrar sesión</button>
+                    </div>
+                </div>
+
+            </header>
+
+
+            <!-- ================================== -->
+            <!-- VISTA: PANEL GENERAL -->
+            <!-- ================================== -->
+
+            <section class="view active" id="view-inicio">
+
+                <div class="welcome">
+
+                    <div>
+
+                        <span class="welcome-label">
+                            ÁREA DE EMPLEADOS
+                        </span>
+
+                        <h2>
+                            ¡Bienvenido a Nuve!
+                        </h2>
+
+                        <p>
+                            Revisa los pedidos pendientes y
+                            mantén actualizado su estado.
+                        </p>
+
+                    </div>
+
+                    <div class="welcome-icon">
+                        ☕
+                    </div>
+
+                </div>
+
+
+                <!-- ESTADÍSTICAS -->
+
+                <div class="stats-grid">
+
+                    <article class="stat-card">
+
+                        <span class="stat-title">
+                            Pedidos pendientes
+                        </span>
+
+                        <strong id="statPendientes">
+                            3
+                        </strong>
+
+                        <span class="stat-description">
+                            Requieren atención
+                        </span>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <span class="stat-title">
+                            En preparación
+                        </span>
+
+                        <strong id="statProceso">
+                            2
+                        </strong>
+
+                        <span class="stat-description">
+                            Preparándose ahora
+                        </span>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <span class="stat-title">
+                            Completados
+                        </span>
+
+                        <strong id="statCompletados">
+                            8
+                        </strong>
+
+                        <span class="stat-description">
+                            Pedidos terminados
+                        </span>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <span class="stat-title">
+                            Productos disponibles
+                        </span>
+
+                        <strong>
+                            38
+                        </strong>
+
+                        <span class="stat-description">
+                            Catálogo actual
+                        </span>
+
+                    </article>
+
+                </div>
+
+
+                <!-- PEDIDOS RECIENTES -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="panel-label">
+                                PEDIDOS
+                            </span>
+
+                            <h3>
+                                Pedidos que requieren atención
+                            </h3>
+
+                        </div>
+
+
+                        <button class="text-button" data-go="pedidos">
+                            Ver todos →
+                        </button>
+
+                    </div>
+
+
+                    <div class="orders-list">
+
+
+                        <!-- PEDIDO 1 -->
+
+                        <article class="order-card">
+
+                            <div class="order-number">
+                                #0512
+                            </div>
+
+                            <div class="order-information">
+
+                                <strong>
+                                    Marisol Pérez
+                                </strong>
+
+                                <span>
+                                    2 × Pastel Chocolate
+                                </span>
+
+                            </div>
+
+                            <span class="status pending">
+                                Pendiente
+                            </span>
+
+                            <button class="action-button start-order">
+                                Iniciar preparación
+                            </button>
+
+                        </article>
+
+
+                        <!-- PEDIDO 2 -->
+
+                        <article class="order-card">
+
+                            <div class="order-number">
+                                #0511
+                            </div>
+
+                            <div class="order-information">
+
+                                <strong>
+                                    Diego Castillo
+                                </strong>
+
+                                <span>
+                                    1 × Cappuccino · 1 × Cheesecake
+                                </span>
+
+                            </div>
+
+                            <span class="status process">
+                                En proceso
+                            </span>
+
+                            <button class="action-button complete-order">
+                                Marcar completado
+                            </button>
+
+                        </article>
+
+
+                        <!-- PEDIDO 3 -->
+
+                        <article class="order-card">
+
+                            <div class="order-number">
+                                #0510
+                            </div>
+
+                            <div class="order-information">
+
+                                <strong>
+                                    Ana Gómez
+                                </strong>
+
+                                <span>
+                                    1 × Pastel Vainilla
+                                </span>
+
+                            </div>
+
+                            <span class="status pending">
+                                Pendiente
+                            </span>
+
+                            <button class="action-button start-order">
+                                Iniciar preparación
+                            </button>
+
+                        </article>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================== -->
+            <!-- VISTA: PEDIDOS -->
+            <!-- ================================== -->
+
+            <section class="view" id="view-pedidos">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="panel-label">
+                                GESTIÓN
+                            </span>
+
+                            <h3>
+                                Pedidos
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FILTROS -->
+
+                    <div class="filters">
+
+                        <button class="filter active">
+                            Todos
+                        </button>
+
+                        <button class="filter">
+                            Pendientes
+                        </button>
+
+                        <button class="filter">
+                            En proceso
+                        </button>
+
+                        <button class="filter">
+                            Completados
+                        </button>
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Pedido</th>
+                                    <th>Cliente</th>
+                                    <th>Producto</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td>#0512</td>
+
+                                    <td>
+                                        Marisol Pérez
+                                    </td>
+
+                                    <td>
+                                        2 Pasteles Chocolate
+                                    </td>
+
+                                    <td>
+                                        Q300.00
+                                    </td>
+
+                                    <td>
+
+                                        <span class="status pending">
+                                            Pendiente
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <button class="small-button">
+                                            Preparar
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>#0511</td>
+
+                                    <td>
+                                        Diego Castillo
+                                    </td>
+
+                                    <td>
+                                        Cappuccino + Cheesecake
+                                    </td>
+
+                                    <td>
+                                        Q107.00
+                                    </td>
+
+                                    <td>
+
+                                        <span class="status process">
+                                            En proceso
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <button class="small-button">
+                                            Completar
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>#0510</td>
+
+                                    <td>
+                                        Ana Gómez
+                                    </td>
+
+                                    <td>
+                                        Pastel Vainilla
+                                    </td>
+
+                                    <td>
+                                        Q125.00
+                                    </td>
+
+                                    <td>
+
+                                        <span class="status completed">
+                                            Completado
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        —
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================== -->
+            <!-- VISTA: PRODUCTOS -->
+            <!-- ================================== -->
+
+            <section class="view" id="view-productos">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="panel-label">
+                                CONSULTA
+                            </span>
+
+                            <h3>
+                                Productos y existencias
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- <div class="notice">
+
+                        El empleado puede consultar los productos
+                        y sus existencias, pero no puede
+                        agregarlos, modificarlos ni eliminarlos.
+
+                    </div> -->
+
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Producto</th>
+                                    <th>Categoría</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th>Disponibilidad</th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td>
+                                        Pastel Chocolate
+                                    </td>
+
+                                    <td>
+                                        Pastel
+                                    </td>
+
+                                    <td>
+                                        Q150.00
+                                    </td>
+
+                                    <td>
+                                        18
+                                    </td>
+
+                                    <td>
+
+                                        <span class="status completed">
+                                            Disponible
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        Pastel Vainilla
+                                    </td>
+
+                                    <td>
+                                        Pastel
+                                    </td>
+
+                                    <td>
+                                        Q125.00
+                                    </td>
+
+                                    <td>
+                                        12
+                                    </td>
+
+                                    <td>
+
+                                        <span class="status completed">
+                                            Disponible
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        Cappuccino
+                                    </td>
+
+                                    <td>
+                                        Bebida
+                                    </td>
+
+                                    <td>
+                                        Q42.00
+                                    </td>
+
+                                    <td>
+                                        30
+                                    </td>
+
+                                    <td>
+
+                                        <span class="status completed">
+                                            Disponible
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        Cheesecake
+                                    </td>
+
+                                    <td>
+                                        Postre
+                                    </td>
+
+                                    <td>
+                                        Q65.00
+                                    </td>
+
+                                    <td>
+                                        0
+                                    </td>
+
+                                    <td>
+
+                                        <span class="status unavailable">
+                                            Agotado
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================== -->
+            <!-- VISTA: MI CUENTA -->
+            <!-- ================================== -->
+
+            <section class="view" id="view-cuenta">
+
+                <div class="panel account-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="panel-label">
+                                PERFIL
+                            </span>
+
+                            <h3>
+                                Mi cuenta
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="account-header">
+
+                        <div class="account-avatar">
+                            E
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Empleado Nuve
+                            </h3>
+
+                            <p>
+                                Cuenta de empleado
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="account-information">
+
+                        <div>
+
+                            <span>
+                                Nombre
+                            </span>
+
+                            <strong>
+                                Empleado Nuve
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Rol
+                            </span>
+
+                            <strong>
+                                Empleado
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Estado
+                            </span>
+
+                            <strong>
+                                Activo
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Permisos
+                            </span>
+
+                            <strong>
+                                Pedidos y consulta de productos
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <button class="action-button" id="employeeChangePassword" type="button">Cambiar contraseña</button>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+    <!-- MENSAJE EMERGENTE -->
+
+    <div class="toast" id="toast"></div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="/password-modal.js"></script><script src="js/empleado.js"></script>
+
+</body>
+
+</html>

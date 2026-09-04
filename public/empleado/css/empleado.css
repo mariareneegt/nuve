@@ -1,0 +1,931 @@
+/* =========================================
+   CONFIGURACIÓN GENERAL
+========================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --durazno: #f4a98b;
+    --durazno-claro: #fbd8c8;
+    --durazno-suave: #fff1ea;
+    --crema: #fffaf7;
+    --cafe: #4b302b;
+    --cafe-suave: #745650;
+    --blanco: #ffffff;
+    --borde: #f0ddd5;
+    --verde: #4f8a67;
+    --verde-claro: #e8f4ec;
+    --amarillo: #b98225;
+    --amarillo-claro: #fff3d9;
+    --rojo: #b95c5c;
+    --rojo-claro: #fbe7e7;
+    --sombra: 0 8px 25px rgba(75, 48, 43, 0.08);
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--crema);
+    color: var(--cafe);
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   ESTRUCTURA PRINCIPAL
+========================================= */
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.sidebar {
+    width: 255px;
+    min-height: 100vh;
+    background-color: var(--durazno-suave);
+    border-right: 1px solid var(--borde);
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 35px 22px 25px;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+
+/* =========================================
+   MARCA NUVE
+========================================= */
+
+.brand {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.brand h1 {
+    font-family: "Fraunces", serif;
+    font-size: 46px;
+    font-weight: 700;
+    color: var(--cafe);
+    line-height: 1;
+}
+
+.brand p {
+    margin-top: 7px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--cafe-suave);
+}
+
+
+/* =========================================
+   MENÚ
+========================================= */
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-item {
+    width: 100%;
+
+    border: none;
+    background: transparent;
+
+    color: var(--cafe-suave);
+
+    padding: 14px 16px;
+
+    border-radius: 12px;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.menu-item:hover {
+    background-color: var(--durazno-claro);
+    color: var(--cafe);
+}
+
+.menu-item.active {
+    background-color: var(--durazno);
+    color: var(--cafe);
+    font-weight: 600;
+}
+
+
+/* =========================================
+   PIE DEL SIDEBAR
+========================================= */
+
+.sidebar-footer {
+    margin-top: auto;
+}
+
+.logout-button {
+    width: 100%;
+
+    border: 1px solid var(--borde);
+
+    background-color: var(--blanco);
+
+    padding: 13px;
+
+    border-radius: 12px;
+
+    color: var(--cafe);
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.logout-button:hover {
+    background-color: var(--rojo-claro);
+    border-color: #efcaca;
+    color: var(--rojo);
+}
+
+
+/* =========================================
+   CONTENIDO PRINCIPAL
+========================================= */
+
+.main-content {
+    width: calc(100% - 255px);
+    margin-left: 255px;
+    min-height: 100vh;
+    padding: 0 38px 40px;
+}
+
+
+/* =========================================
+   BARRA SUPERIOR
+========================================= */
+
+.topbar {
+    min-height: 105px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid var(--borde);
+
+    margin-bottom: 32px;
+}
+
+.topbar h2 {
+    font-family: "Fraunces", serif;
+    font-size: 29px;
+    color: var(--cafe);
+}
+
+.topbar p {
+    color: var(--cafe-suave);
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+
+/* =========================================
+   PERFIL DEL EMPLEADO
+========================================= */
+
+.employee-profile {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    background-color: var(--blanco);
+
+    border: 1px solid var(--borde);
+
+    border-radius: 50px;
+
+    padding: 7px 16px 7px 8px;
+
+    color: var(--cafe);
+    font-family: "Poppins", sans-serif;
+    text-align: left;
+    cursor: pointer;
+}
+
+/* Evita que se vea el contenido de maqueta mientras llegan los datos reales. */
+.employee-loading .view {
+    visibility: hidden;
+}
+
+.profile-menu {
+    position: relative;
+}
+
+.employee-profile:hover,
+.employee-profile[aria-expanded="true"] {
+    border-color: var(--durazno);
+    box-shadow: var(--sombra);
+}
+
+.employee-avatar {
+    width: 39px;
+    height: 39px;
+
+    border-radius: 50%;
+
+    background-color: var(--durazno);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: "Fraunces", serif;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.employee-profile-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.employee-profile strong {
+    font-size: 13px;
+}
+
+.employee-profile span {
+    color: var(--cafe-suave);
+    font-size: 11px;
+}
+
+
+/* =========================================
+   VISTAS
+========================================= */
+
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+}
+
+
+/* =========================================
+   BIENVENIDA
+========================================= */
+
+.welcome {
+    min-height: 175px;
+
+    border-radius: 22px;
+
+    padding: 30px 35px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--durazno-claro),
+            var(--durazno-suave)
+        );
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+
+    overflow: hidden;
+}
+
+.welcome-label {
+    display: inline-block;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+
+    color: var(--cafe-suave);
+
+    margin-bottom: 8px;
+}
+
+.welcome h2 {
+    font-family: "Fraunces", serif;
+
+    font-size: 34px;
+
+    margin-bottom: 7px;
+}
+
+.welcome p {
+    max-width: 500px;
+
+    color: var(--cafe-suave);
+
+    font-size: 14px;
+}
+
+.welcome-icon {
+    font-size: 75px;
+    margin-right: 25px;
+}
+
+
+/* =========================================
+   TARJETAS DE ESTADÍSTICAS
+========================================= */
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
+
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background-color: var(--blanco);
+
+    border: 1px solid var(--borde);
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    box-shadow: var(--sombra);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-title {
+    color: var(--cafe-suave);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.stat-card strong {
+    font-family: "Fraunces", serif;
+
+    font-size: 35px;
+
+    margin: 8px 0 2px;
+}
+
+.stat-description {
+    font-size: 11px;
+    color: var(--cafe-suave);
+}
+
+
+/* =========================================
+   PANELES
+========================================= */
+
+.panel {
+    background-color: var(--blanco);
+
+    border: 1px solid var(--borde);
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    box-shadow: var(--sombra);
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+}
+
+.panel-label {
+    display: block;
+
+    color: var(--durazno);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 3px;
+}
+
+.panel-header h3 {
+    font-family: "Fraunces", serif;
+    font-size: 23px;
+}
+
+.text-button {
+    border: none;
+    background: transparent;
+
+    color: var(--cafe-suave);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.text-button:hover {
+    color: var(--durazno);
+}
+
+
+/* =========================================
+   PEDIDOS DEL PANEL GENERAL
+========================================= */
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-card {
+    display: grid;
+
+    grid-template-columns:
+        80px
+        minmax(200px, 1fr)
+        120px
+        170px;
+
+    gap: 15px;
+
+    align-items: center;
+
+    padding: 17px 5px;
+
+    border-bottom: 1px solid var(--borde);
+}
+
+.order-card:last-child {
+    border-bottom: none;
+}
+
+.order-number {
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    font-size: 17px;
+}
+
+.order-information {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-information strong {
+    font-size: 13px;
+}
+
+.order-information span {
+    color: var(--cafe-suave);
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+
+/* =========================================
+   ESTADOS
+========================================= */
+
+.status {
+    display: inline-flex;
+
+    justify-content: center;
+    align-items: center;
+
+    width: fit-content;
+
+    border-radius: 50px;
+
+    padding: 6px 11px;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.status.pending {
+    background-color: var(--amarillo-claro);
+    color: var(--amarillo);
+}
+
+.status.process {
+    background-color: var(--durazno-suave);
+    color: #b86f50;
+}
+
+.status.completed {
+    background-color: var(--verde-claro);
+    color: var(--verde);
+}
+
+.status.unavailable {
+    background-color: var(--rojo-claro);
+    color: var(--rojo);
+}
+
+
+/* =========================================
+   BOTONES DE PEDIDOS
+========================================= */
+
+.action-button,
+.small-button {
+    border: none;
+
+    background-color: var(--cafe);
+
+    color: var(--blanco);
+
+    border-radius: 10px;
+
+    padding: 10px 13px;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.action-button:hover,
+.small-button:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   FILTROS
+========================================= */
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-bottom: 22px;
+}
+
+.filter {
+    border: 1px solid var(--borde);
+
+    background-color: var(--blanco);
+
+    color: var(--cafe-suave);
+
+    border-radius: 50px;
+
+    padding: 8px 15px;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+.filter:hover {
+    background-color: var(--durazno-suave);
+}
+
+.filter.active {
+    background-color: var(--durazno);
+    border-color: var(--durazno);
+    color: var(--cafe);
+    font-weight: 600;
+}
+
+
+/* =========================================
+   TABLAS
+========================================= */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: var(--durazno-suave);
+}
+
+th {
+    text-align: left;
+
+    color: var(--cafe-suave);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    padding: 13px;
+}
+
+td {
+    border-bottom: 1px solid var(--borde);
+
+    padding: 15px 13px;
+
+    font-size: 12px;
+}
+
+tbody tr:hover {
+    background-color: #fffdfb;
+}
+
+
+/* =========================================
+   AVISO DE PERMISOS
+========================================= */
+
+.notice {
+    background-color: var(--durazno-suave);
+
+    border-left: 4px solid var(--durazno);
+
+    border-radius: 8px;
+
+    padding: 13px 16px;
+
+    color: var(--cafe-suave);
+
+    font-size: 12px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================
+   MI CUENTA
+========================================= */
+
+.account-panel {
+    max-width: 850px;
+}
+
+.account-header {
+    display: flex;
+    align-items: center;
+
+    gap: 17px;
+
+    padding-bottom: 23px;
+
+    border-bottom: 1px solid var(--borde);
+}
+
+.account-avatar {
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    background-color: var(--durazno);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: "Fraunces", serif;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.account-header h3 {
+    font-family: "Fraunces", serif;
+    font-size: 23px;
+}
+
+.account-header p {
+    color: var(--cafe-suave);
+    font-size: 12px;
+}
+
+.account-information {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 15px;
+
+    padding-top: 23px;
+}
+
+.account-information > div {
+    background-color: var(--crema);
+
+    border: 1px solid var(--borde);
+
+    border-radius: 12px;
+
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.account-information span {
+    color: var(--cafe-suave);
+
+    font-size: 10px;
+
+    margin-bottom: 4px;
+}
+
+.account-information strong {
+    font-size: 12px;
+}
+
+
+/* =========================================
+   TOAST / MENSAJE EMERGENTE
+========================================= */
+
+.toast {
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    background-color: var(--cafe);
+
+    color: var(--blanco);
+
+    padding: 13px 18px;
+
+    border-radius: 10px;
+
+    font-size: 12px;
+
+    box-shadow: var(--sombra);
+
+    opacity: 0;
+    pointer-events: none;
+
+    transform: translateY(15px);
+
+    transition: 0.25s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+
+    .stats-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .order-card {
+        grid-template-columns:
+            70px
+            minmax(180px, 1fr)
+            110px;
+    }
+
+    .order-card .action-button {
+        grid-column: 2 / 4;
+        width: fit-content;
+    }
+}
+
+
+@media (max-width: 760px) {
+
+    .sidebar {
+        width: 190px;
+    }
+
+    .main-content {
+        margin-left: 190px;
+        width: calc(100% - 190px);
+        padding: 0 18px 30px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-icon {
+        display: none;
+    }
+
+    .employee-profile {
+        display: none;
+    }
+
+    .order-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .account-information {
+        grid-template-columns: 1fr;
+    }
+}
+
+.profile-chevron {
+    margin-left: 4px;
+    color: var(--cafe-suave);
+    font-size: 18px !important;
+    transition: transform .2s ease;
+}
+
+.employee-profile[aria-expanded="true"] .profile-chevron {
+    transform: rotate(180deg);
+}
+
+.employee-dropdown {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 9px);
+    right: 0;
+    min-width: 210px;
+    padding: 8px;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    box-shadow: 0 12px 28px rgba(75, 48, 43, .14);
+}
+
+.employee-dropdown button {
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 11px;
+    background: transparent;
+    color: var(--cafe);
+    font: 500 13px "Poppins", sans-serif;
+    text-align: left;
+    cursor: pointer;
+}
+
+
+.employee-dropdown button:hover {
+    background: var(--durazno-suave);
+}
+
+.employee-dropdown hr {
+    border: 0;
+    border-top: 1px solid var(--borde);
+    margin: 7px 4px;
+}
+
+.employee-dropdown .profile-logout:hover {
+    background: var(--rojo-claro);
+    color: var(--rojo);
+}

@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nube - Pastelería & Repostería</title>
+  <link rel="stylesheet" href="styles.css" /><link rel="stylesheet" href="/password-modal.css" />
+  <style>
+    select {
+      appearance: none;
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%235f4233' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 12px center;
+      padding-right: 34px !important;
+      cursor: pointer
+    }
+
+    select:focus {
+      outline: 2px solid #f7bfa6;
+      outline-offset: 1px
+    }
+
+    .header-inner {
+      display: block !important;
+      padding: 14px 24px !important
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 9px
+    }
+
+    .main-nav {
+      margin: 12px 0 0 !important;
+      padding-top: 12px;
+      border-top: 1px solid var(--border)
+    }
+
+    .main-nav ul {
+      justify-content: center;
+      gap: 30px
+    }
+
+    .main-nav a {
+      font-size: .88rem
+    }
+
+    .account-button,
+    .logout-store {
+      padding: 8px 12px
+    }
+
+    @media(max-width:760px) {
+      .header-inner {
+        padding: 12px 16px !important
+      }
+
+      .header-top {
+        flex-wrap: wrap
+      }
+
+      .brand small {
+        display: none
+      }
+
+      .header-actions {
+        margin-left: auto
+      }
+
+      .main-nav {
+        width: 100%;
+        display: none;
+        margin-top: 10px !important
+      }
+
+      .main-nav.open {
+        display: block
+      }
+
+      .main-nav ul {
+        align-items: stretch
+      }
+
+      .main-nav a {
+        display: block;
+        padding: 7px
+      }
+
+      .menu-toggle {
+        display: inline-flex !important;
+        margin-left: 0 !important
+      }
+
+      .account-button,
+      .logout-store {
+        font-size: .74rem;
+        padding: 7px 9px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-top">
+        <a href="#inicio" class="brand">
+          <img src="logoNube.png" alt="Logo Nube" />
+          <div>
+            <span class="brand-name">Nuve</span>
+            <small>Pastelería & Repostería</small>
+          </div>
+        </a>
+        <div class="header-actions">
+          <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+          <button class="cart-button" id="cartButton" type="button">Carrito <span id="cartCount">0</span></button>
+          <button class="account-button" id="accountButton" type="button" hidden>Mi cuenta</button>
+          <button class="logout-store" id="storeLogout" type="button" hidden>Cerrar sesión</button>
+        </div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#productos">Menú</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="inicio" class="hero-section">
+      <div class="hero-copy">
+
+        <div class="hero-info">
+          <div>
+            <strong>Carrito de compras</strong>
+            <p>Agrega tus favoritos y revisa tu selección.</p>
+          </div>
+          <div>
+            <strong>Envío local</strong>
+            <p>Pedidos listos para entrega y servicio en tu zona.</p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image"></div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#productos">VER MENÚ</a>
+      </div>
+    </section>
+
+    <section id="nosotros" class="section-block about-block">
+      <div class="section-intro">
+        <span class="section-label">1</span>
+        <h2>Nosotros</h2>
+        <p>En Nube mezclamos diseño y sabor para crear experiencias dulces con una paleta durazno, cremosa y acogedora.
+        </p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>Pasteles Artesanales</h3>
+          <p>Seleccionamos ingredientes frescos y elaboramos cada detalle con amor.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Café Especial</h3>
+          <p>Disfruta de un café de calidad que acompaña a cada dulce.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Entrega a Domicilio</h3>
+          <p>Llevamos tu pedido directo a tu hogar, fresco y seguro.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Atención Personalizada</h3>
+          <p>Te ayudamos a elegir el mejor postre para tu ocasión especial.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="productos-destacados" class="section-block products-block">
+      <div class="section-intro">
+        <span class="section-label">2</span>
+        <h2>Productos destacados</h2>
+        <p>Descubre nuestras recomendaciones durazno, perfectas para regalar o disfrutar.</p>
+      </div>
+      <div class="product-grid">
+        <article class="product-card">
+          <img src="durazno.png" alt="Pastel Durazno Aesthetic" class="product-image" />
+          <div class="product-tag">Pastel</div>
+          <h3>Pastel Durazno Aesthetic</h3>
+          <p>Sabor suave con crema, frutas frescas y decoración elegante.</p>
+          <span class="price">Q120</span>
+          <button class="btn btn-secondary add-cart" data-product="Pastel Durazno">Agregar al carrito</button>
+        </article>
+        <article class="product-card">
+          <img src="Café americano.png" alt="Café americano" class="product-image" />
+          <div class="product-tag">Café</div>
+          <h3>Café americano</h3>
+          <p>Mezcla aromática para acompañar cada porción dulce.</p>
+          <span class="price">Q32</span>
+          <button class="btn btn-secondary add-cart" data-product="Café americano">Agregar al carrito</button>
+        </article>
+        <article class="product-card">
+          <img src="tarleta.png" alt="Tartaleta de Frutas" class="product-image" />
+          <div class="product-tag">Postre</div>
+          <h3>Tartaleta de Frutas</h3>
+          <p>Base crujiente con crema suave y topping de durazno.</p>
+          <span class="price">Q55</span>
+          <button class="btn btn-secondary add-cart" data-product="Tartaleta de Frutas">Agregar al carrito</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="productos" class="section-block product-showcase">
+      <div class="product-showcase-header">
+        <span class="section-label product-label">3</span>
+        <h2>Productos</h2>
+        <p>Explora nuestra variedad por categoría para encontrar tu favorito.</p>
+      </div>
+
+      <div class="category-tabs" aria-label="Categorías de productos">
+        <button class="category-tab" type="button" data-category="pasteles">Pasteles</button>
+        <button class="category-tab active" type="button" data-category="bebidas">Café y bebidas</button>
+        <button class="category-tab" type="button" data-category="postres">Postres</button>
+        <button class="category-tab" type="button" data-category="comidas">Comidas</button>
+        <button class="category-tab offer-tab" type="button" data-category="ofertas">Ofertas</button>
+      </div>
+
+      <div class="showcase-grid">
+        <article class="showcase-card" data-category="postres">
+          <img src="Cheesecake.png" alt="Cheesecake" class="showcase-image" />
+          <div class="showcase-badge">Postre</div>
+          <h3>Cheesecake</h3>
+          <p>Delicioso postre cremoso con base de galleta crujiente.</p>
+          <span class="showcase-price">Q65</span>
+          <button class="btn btn-secondary add-cart" data-product="Cheesecake">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="postres">
+          <img src="tiramisu.png" alt="Tiramisú" class="showcase-image" />
+          <div class="showcase-badge">Postre</div>
+          <h3>Tiramisú</h3>
+          <p>Clásico italiano con capas suaves de mascarpone y café.</p>
+          <span class="showcase-price">Q30</span>
+          <button class="btn btn-secondary add-cart" data-product="Tiramisú">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="postres">
+          <img src="Brownie con chocolate.png" alt="Brownie con Chocolate" class="showcase-image" />
+          <div class="showcase-badge">Postre</div>
+          <h3>Brownie con Chocolate</h3>
+          <p>Postre compacto y esponjoso con intenso sabor a chocolate.</p>
+          <span class="showcase-price">Q50</span>
+          <button class="btn btn-secondary add-cart" data-product="Brownie con Chocolate">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="postres">
+          <img src="Galletas con chispas.png" alt="Galletas con Chispas de Chocolate" class="showcase-image" />
+          <div class="showcase-badge">Postre</div>
+          <h3>Galletas con Chispas de Chocolate</h3>
+          <p>Galletas crujientes llenas de deliciosas chispas de chocolate.</p>
+          <span class="showcase-price">Q35</span>
+          <button class="btn btn-secondary add-cart" data-product="Galletas con Chispas de Chocolate">Agregar al
+            carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="postres">
+          <img src="Flan de Caramelo.png" alt="Flan de Caramelo" class="showcase-image" />
+          <div class="showcase-badge">Postre</div>
+          <h3>Flan de Caramelo</h3>
+          <p>Postre suave y cremoso con caramelo dulce y sedoso.</p>
+          <span class="showcase-price">Q45</span>
+          <button class="btn btn-secondary add-cart" data-product="Flan de Caramelo">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="postres">
+          <img src="tres leche.png" alt="Tres Leches" class="showcase-image" />
+          <div class="showcase-badge">Postre</div>
+          <h3>Tres Leches</h3>
+          <p>Bizcocho esponjoso bañado en tres tipos de leche cremosa.</p>
+          <span class="showcase-price">Q55</span>
+          <button class="btn btn-secondary add-cart" data-product="Tres Leches">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="postres">
+          <img src="pie de limon.png" alt="Pie de Limón" class="showcase-image" />
+          <div class="showcase-badge">Postre</div>
+          <h3>Pie de Limón</h3>
+          <p>Postre refrescante con sabor cítrico y toque de dulzura.</p>
+          <span class="showcase-price">Q52</span>
+          <button class="btn btn-secondary add-cart" data-product="Pie de Limón">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="postres">
+          <img src="donas.png" alt="Donas Glaseadas" class="showcase-image" />
+          <div class="showcase-badge">Postre</div>
+          <h3>Donas Glaseadas</h3>
+          <p>Donitas esponjosas cubiertas con un delicioso glaseado.</p>
+          <span class="showcase-price">Q30</span>
+          <button class="btn btn-secondary add-cart" data-product="Donas Glaseadas">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="postres">
+          <img src="muffins.png" alt="Muffins" class="showcase-image" />
+          <div class="showcase-badge">Postre</div>
+          <h3>Muffins</h3>
+          <p>Pastelitos deliciosos y perfectos para el desayuno.</p>
+          <span class="showcase-price">Q30</span>
+          <button class="btn btn-secondary add-cart" data-product="Muffins">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="postres">
+          <img src="crepas.png" alt="Crepas con Fruta" class="showcase-image" />
+          <div class="showcase-badge">Postre</div>
+          <h3>Crepas con Fruta</h3>
+          <p>Crepas finas y delicadas rellenas de frutas frescas.</p>
+          <span class="showcase-price">Q45</span>
+          <button class="btn btn-secondary add-cart" data-product="Crepas con Fruta">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="pasteles">
+          <img src="chocolate.png" alt="Pastel Chocolate" class="showcase-image" />
+          <div class="showcase-badge">Pastel</div>
+          <h3>Pastel Chocolate</h3>
+          <p>Profundo, suave y perfecto para amantes del cacao.</p>
+          <span class="showcase-price">Q150</span>
+          <button class="btn btn-secondary add-cart" data-product="Pastel Chocolate">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="pasteles">
+          <img src="vainilla.png" alt="Pastel Vainilla" class="showcase-image" />
+          <div class="showcase-badge">Pastel</div>
+          <h3>Pastel Vainilla</h3>
+          <p>Suave, cremoso con relleno de vainilla y cobertura decorada.</p>
+          <span class="showcase-price">Q125</span>
+          <button class="btn btn-secondary add-cart" data-product="Pastel Vainilla">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="pasteles">
+          <img src="fresa.png" alt="Pastel Fresa" class="showcase-image" />
+          <div class="showcase-badge">Pastel</div>
+          <h3>Pastel Fresa</h3>
+          <p>Frutas frescas, capas suaves y presentación delicada.</p>
+          <span class="showcase-price">Q145</span>
+          <button class="btn btn-secondary add-cart" data-product="Pastel Fresa">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="pasteles">
+          <img src="Red velvet.png" alt="Pastel Red Velvet" class="showcase-image" />
+          <div class="showcase-badge">Pastel</div>
+          <h3>Pastel Red Velvet</h3>
+          <p>Clásico elegante con frosting de queso crema y color vivo.</p>
+          <span class="showcase-price">Q155</span>
+          <button class="btn btn-secondary add-cart" data-product="Pastel Red Velvet">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="pasteles">
+          <img src="Zanahoria.png" alt="Pastel Zanahoria" class="showcase-image" />
+          <div class="showcase-badge">Pastel</div>
+          <h3>Pastel Zanahoria</h3>
+          <p>Especiado, húmedo y con frosting suave a la vainilla.</p>
+          <span class="showcase-price">Q135</span>
+          <button class="btn btn-secondary add-cart" data-product="Pastel Zanahoria">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="pasteles">
+          <img src="Limon.png" alt="Pastel Limón" class="showcase-image" />
+          <div class="showcase-badge">Pastel</div>
+          <h3>Pastel Limón</h3>
+          <p>Fresco, cítrico y con un toque de acidez agradable.</p>
+          <span class="showcase-price">Q140</span>
+          <button class="btn btn-secondary add-cart" data-product="Pastel Limón">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="pasteles">
+          <img src="cafe.png" alt="Pastel Café" class="showcase-image" />
+          <div class="showcase-badge">Pastel</div>
+          <h3>Pastel Café</h3>
+          <p>Sabor intenso a café con capas de crema aromática.</p>
+          <span class="showcase-price">Q145</span>
+          <button class="btn btn-secondary add-cart" data-product="Pastel Café">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="pasteles">
+          <img src="oreo.png" alt="Pastel Oreo" class="showcase-image" />
+          <div class="showcase-badge">Pastel</div>
+          <h3>Pastel Oreo</h3>
+          <p>Combinación deliciosa de galletas Oreo y crema suave.</p>
+          <span class="showcase-price">Q155</span>
+          <button class="btn btn-secondary add-cart" data-product="Pastel Oreo">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="pasteles">
+          <img src="coco.png" alt="Pastel Coco" class="showcase-image" />
+          <div class="showcase-badge">Pastel</div>
+          <h3>Pastel Coco</h3>
+          <p>Sabor tropical y exótico con coco fresco rallado.</p>
+          <span class="showcase-price">Q140</span>
+          <button class="btn btn-secondary add-cart" data-product="Pastel Coco">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="pasteles">
+          <img src="Chocolate con avellana.png" alt="Pastel Chocolate con Avellana" class="showcase-image" />
+          <div class="showcase-badge">Pastel</div>
+          <h3>Pastel Chocolate con Avellana</h3>
+          <p>Combinación perfecta de chocolate intenso y avellana suave.</p>
+          <span class="showcase-price">Q165</span>
+          <button class="btn btn-secondary add-cart" data-product="Pastel Chocolate con Avellana">Agregar al
+            carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="bebidas">
+          <img src="Café americano.png" alt="Café Americano" class="showcase-image" />
+          <div class="showcase-badge">Bebida</div>
+          <h3>Café Americano</h3>
+          <p>Café puro y aromático, perfecto para empezar el día.</p>
+          <span class="showcase-price">Q32</span>
+          <button class="btn btn-secondary add-cart" data-product="Café Americano">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="bebidas">
+          <img src="Cappuccino.png" alt="Cappuccino" class="showcase-image" />
+          <div class="showcase-badge">Bebida</div>
+          <h3>Cappuccino</h3>
+          <p>Mezcla equilibrada de café, leche y espuma cremosa.</p>
+          <span class="showcase-price">Q42</span>
+          <button class="btn btn-secondary add-cart" data-product="Cappuccino">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="bebidas">
+          <img src="Latte.png" alt="Latte" class="showcase-image" />
+          <div class="showcase-badge">Bebida</div>
+          <h3>Latte</h3>
+          <p>Café suave con leche vaporizada y un toque delicado.</p>
+          <span class="showcase-price">Q40</span>
+          <button class="btn btn-secondary add-cart" data-product="Latte">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="bebidas">
+          <img src="Moca.png" alt="Moca" class="showcase-image" />
+          <div class="showcase-badge">Bebida</div>
+          <h3>Moca</h3>
+          <p>Deliciosa combinación de café, chocolate y leche cremosa.</p>
+          <span class="showcase-price">Q45</span>
+          <button class="btn btn-secondary add-cart" data-product="Moca">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="bebidas">
+          <img src="Chocolate Caliente.png" alt="Chocolate Caliente" class="showcase-image" />
+          <div class="showcase-badge">Bebida</div>
+          <h3>Chocolate Caliente</h3>
+          <p>Reconfortante y cremoso, perfecto con marshmallows encima.</p>
+          <span class="showcase-price">Q38</span>
+          <button class="btn btn-secondary add-cart" data-product="Chocolate Caliente">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="bebidas">
+          <img src="Frappé de Café.png" alt="Frappé de Café" class="showcase-image" />
+          <div class="showcase-badge">Bebida</div>
+          <h3>Frappé de Café</h3>
+          <p>Bebida fría y refrescante con café helado y espuma.</p>
+          <span class="showcase-price">Q50</span>
+          <button class="btn btn-secondary add-cart" data-product="Frappé de Café">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="bebidas">
+          <img src="Té Chai.png" alt="Té Chai" class="showcase-image" />
+          <div class="showcase-badge">Bebida</div>
+          <h3>Té Chai</h3>
+          <p>Infusión aromática con especias exóticas y leche.</p>
+          <span class="showcase-price">Q36</span>
+          <button class="btn btn-secondary add-cart" data-product="Té Chai">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="bebidas">
+          <img src="Limonada Natural.png" alt="Limonada Natural" class="showcase-image" />
+          <div class="showcase-badge">Bebida</div>
+          <h3>Limonada Natural</h3>
+          <p>Bebida refrescante hecha con limón fresco y natural.</p>
+          <span class="showcase-price">Q30</span>
+          <button class="btn btn-secondary add-cart" data-product="Limonada Natural">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="bebidas">
+          <img src="Smoothie de Fresa.png" alt="Smoothie de Fresa" class="showcase-image" />
+          <div class="showcase-badge">Bebida</div>
+          <h3>Smoothie de Fresa</h3>
+          <p>Bebida cremosa con fresas frescas y yogur natural.</p>
+          <span class="showcase-price">Q44</span>
+          <button class="btn btn-secondary add-cart" data-product="Smoothie de Fresa">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="bebidas">
+          <img src="naranja.png" alt="Jugo de Naranja" class="showcase-image" />
+          <div class="showcase-badge">Bebida</div>
+          <h3>Jugo de Naranja</h3>
+          <p>Jugo natural recién exprimido, rico en vitaminas.</p>
+          <span class="showcase-price">Q28</span>
+          <button class="btn btn-secondary add-cart" data-product="Jugo de Naranja">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="comidas">
+          <img src="Sándwich de Jamón y Queso.png" alt="Sándwich de Jamón y Queso" class="showcase-image" />
+          <div class="showcase-badge">Comida</div>
+          <h3>Sándwich de Jamón y Queso</h3>
+          <p>Pan tostado con jamón y queso derretido, simple y delicioso.</p>
+          <span class="showcase-price">Q55</span>
+          <button class="btn btn-secondary add-cart" data-product="Sándwich de Jamón y Queso">Agregar al
+            carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="comidas">
+          <img src="Croissant de Pollo.png" alt="Croissant de Pollo" class="showcase-image" />
+          <div class="showcase-badge">Comida</div>
+          <h3>Croissant de Pollo</h3>
+          <p>Croissant crujiente relleno de pollo tierno y verduras.</p>
+          <span class="showcase-price">Q45</span>
+          <button class="btn btn-secondary add-cart" data-product="Croissant de Pollo">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="comidas">
+          <img src="Panini de Pollo y Queso.png" alt="Panini de Pollo y Queso" class="showcase-image" />
+          <div class="showcase-badge">Comida</div>
+          <h3>Panini de Pollo y Queso</h3>
+          <p>Pan tostado con pollo a la parrilla y queso fundido.</p>
+          <span class="showcase-price">Q65</span>
+          <button class="btn btn-secondary add-cart" data-product="Panini de Pollo y Queso">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="comidas">
+          <img src="Bagel con Huevo.png" alt="Bagel con Huevo y Queso" class="showcase-image" />
+          <div class="showcase-badge">Comida</div>
+          <h3>Bagel con Huevo y Queso</h3>
+          <p>Bagel recién tostado con huevo y queso americano.</p>
+          <span class="showcase-price">Q48</span>
+          <button class="btn btn-secondary add-cart" data-product="Bagel con Huevo y Queso">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="comidas">
+          <img src="Cesar.png" alt="Ensalada César" class="showcase-image" />
+          <div class="showcase-badge">Comida</div>
+          <h3>Ensalada César</h3>
+          <p>Lechuga fresca, queso parmesano, croutones y aderezo hecho en casa.</p>
+          <span class="showcase-price">Q32</span>
+          <button class="btn btn-secondary add-cart" data-product="Ensalada César">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="comidas">
+          <img src="tortilla.png" alt="Wrap de Pollo" class="showcase-image" />
+          <div class="showcase-badge">Comida</div>
+          <h3>Wrap de Pollo</h3>
+          <p>Tortilla enrollada con pollo, verduras frescas y salsa cremosa.</p>
+          <span class="showcase-price">Q60</span>
+          <button class="btn btn-secondary add-cart" data-product="Wrap de Pollo">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="comidas">
+          <img src="tostada.png" alt="Tostadas con Aguacate" class="showcase-image" />
+          <div class="showcase-badge">Comida</div>
+          <h3>Tostadas con Aguacate</h3>
+          <p>Tostadas crujientes cubiertas con guacamole fresco.</p>
+          <span class="showcase-price">Q52</span>
+          <button class="btn btn-secondary add-cart" data-product="Tostadas con Aguacate">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="comidas">
+          <img src="omelette.png" alt="Omelette con Vegetales" class="showcase-image" />
+          <div class="showcase-badge">Comida</div>
+          <h3>Omelette con Vegetales</h3>
+          <p>Omelette esponjoso relleno de verduras variadas.</p>
+          <span class="showcase-price">Q58</span>
+          <button class="btn btn-secondary add-cart" data-product="Omelette con Vegetales">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="comidas">
+          <img src="nacho.png" alt="Nachos con Queso" class="showcase-image" />
+          <div class="showcase-badge">Comida</div>
+          <h3>Nachos con Queso</h3>
+          <p>Tortillas crujientes con queso derretido y jalapeños.</p>
+          <span class="showcase-price">Q56</span>
+          <button class="btn btn-secondary add-cart" data-product="Nachos con Queso">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card" data-category="comidas">
+          <img src="creppa.png" alt="Crepa de Jamón y Queso" class="showcase-image" />
+          <div class="showcase-badge">Comida</div>
+          <h3>Crepa de Jamón y Queso</h3>
+          <p>Crepa fina rellena de jamón y queso, servida tibia.</p>
+          <span class="showcase-price">Q20</span>
+          <button class="btn btn-secondary add-cart" data-product="Crepa de Jamón y Queso">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card offer-card" data-category="ofertas">
+          <div class="offer-ribbon">25% OFF</div>
+          <img src="chocolate.png" alt="Pastel Chocolate en oferta" class="showcase-image" />
+          <div class="showcase-badge">Pastel</div>
+          <h3>Pastel Chocolate</h3>
+          <p>Profundo, suave y perfecto para amantes del cacao.</p>
+          <span class="showcase-price"><del>Q150</del> Q112.50</span>
+          <button class="btn btn-secondary add-cart" data-product="Pastel Chocolate - Oferta 25%">Agregar al
+            carrito</button>
+        </article>
+
+        <article class="showcase-card offer-card" data-category="ofertas">
+          <div class="offer-ribbon">25% OFF</div>
+          <img src="vainilla.png" alt="Pastel Vainilla en oferta" class="showcase-image" />
+          <div class="showcase-badge">Pastel</div>
+          <h3>Pastel Vainilla</h3>
+          <p>Suave, cremoso con relleno de vainilla y cobertura decorada.</p>
+          <span class="showcase-price"><del>Q125</del> Q93.75</span>
+          <button class="btn btn-secondary add-cart" data-product="Pastel Vainilla - Oferta 25%">Agregar al
+            carrito</button>
+        </article>
+
+        <article class="showcase-card offer-card" data-category="ofertas">
+          <div class="offer-ribbon">25% OFF</div>
+          <img src="Café americano.png" alt="Café Americano en oferta" class="showcase-image" />
+          <div class="showcase-badge">Bebida</div>
+          <h3>Café Americano</h3>
+          <p>Café puro y aromático, perfecto para empezar el día.</p>
+          <span class="showcase-price"><del>Q32</del> Q24</span>
+          <button class="btn btn-secondary add-cart" data-product="Café Americano - Oferta 25%">Agregar al
+            carrito</button>
+        </article>
+
+        <article class="showcase-card offer-card" data-category="ofertas">
+          <div class="offer-ribbon">25% OFF</div>
+          <img src="Cappuccino.png" alt="Cappuccino en oferta" class="showcase-image" />
+          <div class="showcase-badge">Bebida</div>
+          <h3>Cappuccino</h3>
+          <p>Mezcla equilibrada de café, leche y espuma cremosa.</p>
+          <span class="showcase-price"><del>Q42</del> Q31.50</span>
+          <button class="btn btn-secondary add-cart" data-product="Cappuccino - Oferta 25%">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card offer-card" data-category="ofertas">
+          <div class="offer-ribbon">25% OFF</div>
+          <img src="Cheesecake.png" alt="Cheesecake en oferta" class="showcase-image" />
+          <div class="showcase-badge">Postre</div>
+          <h3>Cheesecake</h3>
+          <p>Delicioso postre cremoso con base de galleta crujiente.</p>
+          <span class="showcase-price"><del>Q65</del> Q48.75</span>
+          <button class="btn btn-secondary add-cart" data-product="Cheesecake - Oferta 25%">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card offer-card" data-category="ofertas">
+          <div class="offer-ribbon">25% OFF</div>
+          <img src="tiramisu.png" alt="Tiramisú en oferta" class="showcase-image" />
+          <div class="showcase-badge">Postre</div>
+          <h3>Tiramisú</h3>
+          <p>Clásico italiano con capas suaves de mascarpone y café.</p>
+          <span class="showcase-price"><del>Q30</del> Q22.50</span>
+          <button class="btn btn-secondary add-cart" data-product="Tiramisú - Oferta 25%">Agregar al carrito</button>
+        </article>
+
+        <article class="showcase-card offer-card" data-category="ofertas">
+          <div class="offer-ribbon">25% OFF</div>
+          <img src="Sándwich de Jamón y Queso.png" alt="Sándwich de Jamón y Queso en oferta" class="showcase-image" />
+          <div class="showcase-badge">Comida</div>
+          <h3>Sándwich de Jamón y Queso</h3>
+          <p>Pan tostado con jamón y queso derretido, simple y delicioso.</p>
+          <span class="showcase-price"><del>Q55</del> Q41.25</span>
+          <button class="btn btn-secondary add-cart" data-product="Sándwich de Jamón y Queso - Oferta 25%">Agregar al
+            carrito</button>
+        </article>
+
+        <article class="showcase-card offer-card" data-category="ofertas">
+          <div class="offer-ribbon">25% OFF</div>
+          <img src="Croissant de Pollo.png" alt="Croissant de Pollo en oferta" class="showcase-image" />
+          <div class="showcase-badge">Comida</div>
+          <h3>Croissant de Pollo</h3>
+          <p>Croissant crujiente relleno de pollo tierno y verduras.</p>
+          <span class="showcase-price"><del>Q45</del> Q33.75</span>
+          <button class="btn btn-secondary add-cart" data-product="Croissant de Pollo - Oferta 25%">Agregar al
+            carrito</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="contacto" class="section-block contact-block">
+      <div class="section-intro">
+        <span class="section-label">5</span>
+        <h2>Contacto</h2>
+        <p>Estamos listos para atender tus dudas y ayudarte con tu pedido.</p>
+      </div>
+      <div class="contact-grid">
+        <article class="contact-card">
+          <h3><img src="telefono.png" alt="Teléfono" class="contact-inline-icon" /> Teléfono</h3>
+          <p>+502 51317523</p>
+          <p>+502 42462034</p>
+        </article>
+        <article class="contact-card">
+          <h3><img src="Gmail.png" alt="Gmail" class="contact-inline-icon" /> Gmail</h3>
+          <p>nubepasteleria@gmail.com</p>
+        </article>
+        <article class="contact-card">
+          <h3><img src="ubi.png" alt="Ubicación" class="contact-inline-icon" /> Ubicación</h3>
+          <p>3r Avenida, 1-23 Zona 1, Ciudad de Guatemala</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div class="cart-panel" id="cartPanel" hidden>
+    <div class="cart-panel-backdrop" data-cart-close></div>
+    <section class="cart-content" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <div class="cart-header">
+        <div>
+          <span class="section-label">6</span>
+          <h2 id="cartTitle">Tu carrito</h2>
+        </div>
+        <button class="cart-close" type="button" data-cart-close aria-label="Cerrar carrito">&times;</button>
+      </div>
+      <div class="cart-items" id="cartItemsList"></div>
+      <div class="cart-empty" id="cartEmpty">Tu carrito está vacío. Agrega tus productos favoritos.</div>
+      <div class="cart-summary" id="cartSummary" hidden>
+        <strong>Total: <span id="cartTotal">Q0</span></strong>
+        <label class="cart-payment" for="cartModalidad">¿Cómo recibirás tu pedido?
+          <select id="cartModalidad">
+            <option value="">Selecciona una opción</option>
+            <option value="CONTRA_ENTREGA">Entrega a domicilio</option>
+            <option value="EN_LOCAL">Recoger en el local</option>
+          </select>
+        </label>
+        <label class="cart-payment" for="cartPaymentMethod">Método de pago
+          <select id="cartPaymentMethod">
+            <option value="">Selecciona una opción</option>
+            <option value="EFECTIVO">Efectivo</option>
+            <option value="TARJETA">Tarjeta</option>
+          </select>
+        </label>
+        <button class="btn btn-primary complete-order" id="completeOrder" type="button">Completar pedido</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="account-panel" id="accountPanel" hidden>
+    <div class="cart-panel-backdrop" data-account-close></div>
+    <section class="account-content" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
+      <div class="cart-header">
+        <div><span class="section-label">◒</span>
+          <h2 id="accountTitle">Mi cuenta</h2>
+        </div><button class="cart-close" type="button" data-account-close aria-label="Cerrar">&times;</button>
+      </div>
+      <p class="account-email" id="accountEmail"></p>
+      <form id="accountForm" class="account-form">
+        <label>Nombre completo<input id="accountName" required></label>
+        <label>Teléfono<input id="accountPhone" type="tel" required></label>
+        <label>Dirección<input id="accountAddress" required></label>
+        <button class="btn btn-primary" type="submit">Guardar cambios</button>
+      </form>
+      <button class="account-password" id="clientChangePassword" type="button">Cambiar contraseña</button>
+    </section>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="logoNube.png" alt="Logo Nube" />
+        </div>
+        <div>
+          <h3>Nuve</h3>
+          <p>Pastelería & Repostería Te esperan.</p>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <strong>Dirección</strong>
+        <p><img src="ciudad guatemala.png" alt="Ciudad de Guatemala" class="footer-icon" /> Ciudad de Guatemala</p>
+      </div>
+      <div class="footer-social">
+        <strong>Síguenos</strong>
+        <div class="social-links">
+          <a href="https://www.instagram.com/nubecita183?igsh=MWpmZmx3eGJzazB5Nw==" target="_blank"
+            rel="noopener noreferrer" aria-label="Instagram"><img src="instagram.png" alt="Instagram"
+              class="social-icon" /></a>
+          <a href="https://www.facebook.com/profile.php?id=61592895356439" target="_blank" rel="noopener noreferrer"
+            aria-label="Facebook"><img src="facebook.png" alt="Facebook" class="social-icon" /></a>
+          <a href="https://www.tiktok.com/@nubepasteleria7?_r=1&_t=ZS-98aVyJ4HlhJ" target="_blank"
+            rel="noopener noreferrer" aria-label="TikTok"><img src="tiktok.png" alt="TikTok" class="social-icon" /></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Acceso exclusivo para clientes y pedidos en línea.</p>
+    </div>
+  </footer>
+
+
+
+  <script src="/password-modal.js"></script><script src="script.js"></script>
+</body>
+
+</html>

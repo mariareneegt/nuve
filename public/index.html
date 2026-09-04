@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuve | Acceso</title>
+  <link rel="stylesheet" href="/app.css">
+  <link rel="stylesheet" href="/password-modal.css">
+  <style>
+    .password-field {
+      display: flex;
+      gap: 6px
+    }
+
+    .password-field input {
+      width: 100%
+    }
+
+    .toggle-password {
+      padding: 0 10px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      font-size: .75rem
+    }
+  </style>
+</head>
+
+<body class="landing app-loading">
+  <main class="shell">
+    <section class="intro">
+      <p class="eyebrow">PASTELERÍA &amp; REPOSTERÍA</p>
+      <h1>nuve</h1>
+      <p class="lead">Postres, café y momentos especiales preparados para ti.</p>
+      <div class="links">
+        <a href="/cliente/">Ver tienda</a>
+      </div>
+    </section>
+    <section class="card login-card">
+      <h2 id="formTitle">Inicia sesión</h2>
+      <p id="formDescription">Ingresa con tu cuenta para continuar.</p>
+      <form id="loginForm">
+        <label>Correo<input name="correo" type="email" autocomplete="email" required></label>
+        <label>Contraseña<span class="password-field"><input name="password" type="password"
+              autocomplete="current-password" required><button class="toggle-password"
+              type="button">Ver</button></span></label>
+        <button>Entrar</button>
+        <p id="message" class="message" role="alert"></p>
+      </form>
+      <p class="small" id="switchText">¿Aún no tienes cuenta? <button class="link-button" id="showRegister"
+          type="button">Crear cuenta</button></p>
+      <form id="registerForm" hidden>
+        <label>Nombre completo<input name="nombre" autocomplete="name" required></label>
+        <label>Correo<input name="correo" type="email" autocomplete="email" required></label>
+        <label>Teléfono<input name="telefono" type="tel" autocomplete="tel"></label>
+        <label>Dirección<input name="direccion" autocomplete="street-address"></label>
+        <label>Contraseña<span class="password-field"><input name="password" type="password" minlength="8"
+              autocomplete="new-password" required><button class="toggle-password"
+              type="button">Ver</button></span></label>
+        <button>Crear cuenta</button>
+      </form>
+    </section>
+  </main>
+  <script src="/password-modal.js"></script>
+  <script src="/app.js"></script>
+</body>
+
+</html>

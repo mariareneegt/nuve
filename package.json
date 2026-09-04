@@ -1,0 +1,22 @@
+{
+  "name": "nuve-api",
+  "version": "1.0.0",
+  "description": "API sencilla para NUVE Pastelería y Repostería",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "asignar-password": "node scripts/asignar-password.js",
+    "asignar-imagenes": "node scripts/asignar-imagenes.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "pg": "^8.11.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

@@ -835,43 +835,52 @@ app.get("/api/usuarios", requiereSesion("ADMIN"), async (req, res) => {
     }
 });
 
-app.patch("/api/usuarios/:id_usuario/rol", requiereSesion("ADMIN"), async (req, res) => {
+app.post("/api/admin/usuarios", requiereSesion("ADMIN"), async (req, res) => {
     const client = await pool.connect();
     try {
-        const idUsuario = Number(req.params.id_usuario);
-        const { rol } = req.body;
-        if (!Number.isInteger(idUsuario) || !["CLIENTE", "EMPLEADO", "ADMIN"].includes(rol)) {
-            return res.status(400).json({ error: "Rol no válido" });
+        const { nombre, correo, password, telefono, rol, puesto, fecha_contratacion } = req.body;
+        const nombreLimpio = String(nombre || "").trim();
+        const correoLimpio = String(correo || "").trim().toLowerCase();
+        const telefonoLimpio = String(telefono || "").trim() || null;
+
+        if (!nombreLimpio || !correoLimpio || !password) {
+            return res.status(400).json({ error: "Nombre, correo y contraseña son obligatorios" });
         }
-        if (idUsuario === req.usuario.id_usuario) {
-            return res.status(400).json({ error: "No puedes cambiar tu propio rol" });
+        if (String(password).length < 8) {
+            return res.status(400).json({ error: "La contraseña debe tener al menos 8 caracteres" });
         }
+        if (!["EMPLEADO", "ADMIN"].includes(rol)) {
+            return res.status(400).json({ error: "Solo puedes registrar empleados o administradores desde este panel" });
+        }
+        if (rol === "EMPLEADO" && !String(puesto || "").trim()) {
+            return res.status(400).json({ error: "El puesto es obligatorio para un empleado" });
+        }
+
         await client.query("BEGIN");
+        const passwordHash = await bcrypt.hash(String(password), 10);
         const userResult = await client.query(
-            "UPDATE usuarios SET rol = $1 WHERE id_usuario = $2 RETURNING id_usuario, nombre, telefono, rol",
-            [rol, idUsuario]
+            `INSERT INTO usuarios (nombre, correo, password_hash, telefono, rol, estado)
+             VALUES ($1, $2, $3, $4, $5, 'ACTIVO')
+             RETURNING id_usuario, nombre, correo, telefono, rol, estado`,
+            [nombreLimpio, correoLimpio, passwordHash, telefonoLimpio, rol]
         );
-        if (!userResult.rows.length) {
-            await client.query("ROLLBACK");
-            return res.status(404).json({ error: "Usuario no encontrado" });
-        }
         const usuario = userResult.rows[0];
+
         if (rol === "EMPLEADO") {
             await client.query(
-                `INSERT INTO empleados (id_usuario, nombre, telefono, puesto)
-                 VALUES ($1, $2, $3, 'Pendiente de asignar')
-                 ON CONFLICT (id_usuario) DO NOTHING`,
-                [usuario.id_usuario, usuario.nombre, usuario.telefono]
+                `INSERT INTO empleados (id_usuario, nombre, telefono, puesto, fecha_contratacion)
+                 VALUES ($1, $2, $3, $4, $5)`,
+                [usuario.id_usuario, usuario.nombre, usuario.telefono, String(puesto).trim(), fecha_contratacion || null]
             );
-        } else {
-            await client.query("DELETE FROM empleados WHERE id_usuario = $1", [usuario.id_usuario]);
         }
+
         await client.query("COMMIT");
-        res.json({ mensaje: "Rol actualizado correctamente", usuario });
+        res.status(201).json({ mensaje: `${rol === "ADMIN" ? "Administrador" : "Empleado"} registrado correctamente`, usuario });
     } catch (error) {
         await client.query("ROLLBACK");
-        console.error("Error al actualizar rol:", error);
-        res.status(500).json({ error: "Error al actualizar el rol" });
+        console.error("Error al registrar usuario administrativo:", error);
+        if (error.code === "23505") return res.status(400).json({ error: "El correo ya está registrado" });
+        res.status(500).json({ error: "Error al registrar el usuario" });
     } finally {
         client.release();
     }

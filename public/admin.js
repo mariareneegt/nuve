@@ -9,6 +9,7 @@ document.querySelector('#logout').onclick = async () => {
 document.querySelector('#changePassword').onclick = () => window.openPasswordDialog();
 const money = (value) => new Intl.NumberFormat('es-GT', { style: 'currency', currency: 'GTQ' }).format(Number(value || 0));
 const states = ['PENDIENTE','CONFIRMADO','EN PREPARACION','LISTO','EN CAMINO','ENTREGADO','CANCELADO'];
+const escapeHtml = value => String(value ?? '').replace(/[&<>"]/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[character]));
 
 async function request(url, options) { const res = await fetch(url, options); const data = await res.json(); if (!res.ok) throw new Error(data.error || 'No se pudieron cargar los datos'); return data; }
 async function load() {
@@ -33,7 +34,7 @@ async function load() {
 async function loadUsers() {
   try {
     const users = await request('/api/usuarios');
-    document.querySelector('#usersBody').innerHTML = users.map(item => `<tr><td>${item.nombre}</td><td>${item.correo}</td><td>${item.estado}</td><td><select class="role-select" data-user-id="${item.id_usuario}" ${item.id_usuario === user?.id_usuario ? 'disabled' : ''}>${['CLIENTE','EMPLEADO','ADMIN'].map(role => `<option ${role === item.rol ? 'selected' : ''}>${role}</option>`).join('')}</select></td></tr>`).join('') || '<tr><td colspan="4">No hay usuarios.</td></tr>';
+    document.querySelector('#usersBody').innerHTML = users.map(item => `<tr><td>${escapeHtml(item.nombre)}</td><td>${escapeHtml(item.correo)}</td><td>${escapeHtml(item.estado)}</td><td><span class="role-badge">${escapeHtml(item.rol)}</span></td></tr>`).join('') || '<tr><td colspan="4">No hay usuarios.</td></tr>';
   } catch (error) { alert(error.message); }
 }
 document.querySelector('#refresh').onclick = load;
@@ -46,7 +47,30 @@ async function loadProductsAdmin() {
 }
 document.querySelector('#refreshProducts').onclick = loadProductsAdmin;
 document.querySelector('#productsAdminBody').addEventListener('click', async (event) => { const button = event.target.closest('.save-product'); if (!button) return; const id = button.dataset.id; try { await request(`/api/admin/productos/${id}`, {method:'PATCH', headers:{'Content-Type':'application/json'}, body:JSON.stringify({precio:document.querySelector(`.product-price[data-id="${id}"]`).value, sumar_stock:Number(document.querySelector(`.product-stock[data-id="${id}"]`).value || 0), estado:document.querySelector(`.product-state[data-id="${id}"]`).value})}); await loadProductsAdmin(); await load(); } catch (error) { alert(error.message); } });
-document.querySelector('#usersBody').addEventListener('change', async (event) => { if (!event.target.matches('.role-select')) return; try { await request(`/api/usuarios/${event.target.dataset.userId}/rol`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({rol:event.target.value}) }); await loadUsers(); } catch (error) { alert(error.message); await loadUsers(); } });
+const staffForm = document.querySelector('#staffForm');
+const staffRole = document.querySelector('#staffRole');
+const staffMessage = document.querySelector('#staffMessage');
+function updateStaffFields() {
+  const isEmployee = staffRole.value === 'EMPLEADO';
+  document.querySelectorAll('.employee-only').forEach(field => field.hidden = !isEmployee);
+  document.querySelector('#staffPosition').required = isEmployee;
+}
+staffRole.addEventListener('change', updateStaffFields);
+staffForm.addEventListener('submit', async event => {
+  event.preventDefault();
+  staffMessage.textContent = 'Creando cuenta…';
+  staffMessage.classList.remove('error');
+  try {
+    const result = await request('/api/admin/usuarios', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(Object.fromEntries(new FormData(staffForm))) });
+    staffMessage.textContent = result.mensaje;
+    staffForm.reset();
+    updateStaffFields();
+    await Promise.all([loadUsers(), load()]);
+  } catch (error) {
+    staffMessage.textContent = error.message;
+    staffMessage.classList.add('error');
+  }
+});
 document.querySelector('#ordersBody').addEventListener('change', async (event) => { if (!event.target.matches('.state-select')) return; try { await request(`/api/pedidos/${event.target.dataset.id}/estado`, { method:'PATCH', headers:{'Content-Type':'application/json'}, body:JSON.stringify({estado_pedido:event.target.value}) }); await load(); } catch (error) { alert(error.message); } });
 document.querySelectorAll('.admin-nav-item').forEach(button => button.addEventListener('click', () => {
   const view = button.dataset.adminView;
@@ -58,3 +82,4 @@ document.querySelectorAll('.admin-nav-item').forEach(button => button.addEventLi
 load();
 loadUsers();
 loadProductsAdmin();
+updateStaffFields();

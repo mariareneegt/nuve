@@ -7,7 +7,7 @@
   <title>Nuve | Administración</title>
   <link rel="stylesheet" href="/admin.css"><link rel="stylesheet" href="/password-modal.css">
   <style>
-    .admin-section-nav{display:flex;gap:10px;margin:0 0 24px;flex-wrap:wrap}.admin-nav-item{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 15px;color:var(--brown);font:600 .85rem system-ui;cursor:pointer}.admin-nav-item.active{background:var(--peach);border-color:var(--peach)}.admin-view{display:none}.admin-view.active{display:block}.roles-panel{margin-top:0}.panel-head p{margin:4px 0 0;color:var(--muted);font-size:.8rem}.role-select,.product-price,.product-stock,.product-state{max-width:130px;border:1px solid var(--line);border-radius:7px;padding:7px;background:#fff;font:inherit;font-size:.8rem}.save-product{border:0;border-radius:7px;padding:8px 10px;background:#fbe5d8;color:var(--brown);font:600 .8rem system-ui;cursor:pointer}
+    .admin-section-nav{display:flex;gap:10px;margin:0 0 24px;flex-wrap:wrap}.admin-nav-item{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 15px;color:var(--brown);font:600 .85rem system-ui;cursor:pointer}.admin-nav-item.active{background:var(--peach);border-color:var(--peach)}.admin-view{display:none}.admin-view.active{display:block}.roles-panel{margin-top:0}.panel-head p{margin:4px 0 0;color:var(--muted);font-size:.8rem}.product-price,.product-stock,.product-state{max-width:130px;border:1px solid var(--line);border-radius:7px;padding:7px;background:#fff;font:inherit;font-size:.8rem}.save-product{border:0;border-radius:7px;padding:8px 10px;background:#fbe5d8;color:var(--brown);font:600 .8rem system-ui;cursor:pointer}.staff-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0 28px;padding:20px;background:#fff9f4;border:1px solid var(--line);border-radius:12px}.staff-form label{display:grid;gap:6px;color:var(--muted);font-size:.76rem;font-weight:650}.staff-form input,.staff-form select{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 11px;background:#fff;color:var(--brown);font:inherit}.staff-form .form-actions{grid-column:1/-1;display:flex;align-items:center;gap:12px}.staff-form button{padding:11px 18px}.form-message{font-size:.82rem;color:var(--green)}.form-message.error{color:#b04432}.role-badge{display:inline-block;padding:5px 9px;border-radius:99px;background:#fbe5d8;font-size:.72rem;font-weight:700}.employee-only[hidden]{display:none}@media(max-width:760px){.staff-form{grid-template-columns:1fr}}
   </style>
   <style>
     select{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23472d28' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 10px center;padding-right:30px!important;cursor:pointer;transition:border-color .2s,box-shadow .2s}select:hover,select:focus{border-color:#eea17d;outline:0;box-shadow:0 0 0 3px #fbe5d8}.product-category{color:var(--muted);font-size:.78rem;white-space:nowrap}.products-table td{vertical-align:middle}.products-table td:first-child{font-weight:650}.save-product:hover{background:#eea17d}
@@ -28,7 +28,7 @@
     </div>
     <nav class="admin-section-nav" aria-label="Secciones de administración">
       <button class="admin-nav-item active" data-admin-view="resumen">Resumen</button>
-      <button class="admin-nav-item" data-admin-view="usuarios">Usuarios y roles</button>
+      <button class="admin-nav-item" data-admin-view="usuarios">Equipo y administradores</button>
       <button class="admin-nav-item" data-admin-view="productos">Productos</button>
     </nav>
     <section class="admin-view active" id="admin-view-resumen">
@@ -67,10 +67,21 @@
     <section class="panel roles-panel admin-view" id="admin-view-usuarios">
       <div class="panel-head">
         <div>
-          <h2>Usuarios y roles</h2>
-          <p>Las cuentas nuevas se registran como clientes. Desde aquí puedes asignarlas como empleados.</p>
+          <h2>Registrar personal</h2>
+          <p>Crea directamente una cuenta de empleado o administrador. Los clientes conservan siempre su rol.</p>
         </div><button id="refreshUsers">Actualizar usuarios</button>
       </div>
+      <form id="staffForm" class="staff-form">
+        <label>Nombre completo<input name="nombre" autocomplete="name" required></label>
+        <label>Correo<input name="correo" type="email" autocomplete="email" required></label>
+        <label>Teléfono<input name="telefono" type="tel" autocomplete="tel"></label>
+        <label>Tipo de cuenta<select name="rol" id="staffRole"><option value="EMPLEADO">Empleado</option><option value="ADMIN">Administrador</option></select></label>
+        <label class="employee-only">Puesto<input name="puesto" id="staffPosition" placeholder="Ej. Pastelero"></label>
+        <label class="employee-only">Fecha de contratación<input name="fecha_contratacion" type="date"></label>
+        <label>Contraseña temporal<input name="password" type="password" autocomplete="new-password" minlength="8" required></label>
+        <div class="form-actions"><button type="submit">Crear cuenta</button><span id="staffMessage" class="form-message" role="status"></span></div>
+      </form>
+      <div class="panel-head"><div><h2>Usuarios registrados</h2><p>Los roles son informativos y ya no pueden cambiarse desde una cuenta de cliente.</p></div></div>
       <div class="table-wrap">
         <table>
           <thead>
@@ -78,7 +89,7 @@
               <th>Usuario</th>
               <th>Correo</th>
               <th>Estado</th>
-              <th>Rol</th>
+              <th>Tipo de cuenta</th>
             </tr>
           </thead>
           <tbody id="usersBody"></tbody>
